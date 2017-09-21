@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+这里的包名需要指定到类名，否则在使用接口的时候会报错：
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found):
+但是不会影响使用sqlSession，为了保证接口能正常使用在此处的namespace需要指定到全类名，
+写成这样：
+org.cooze.spring.boot.mybatis.xml.mapper.school.SchoolMapper
+-->
+<mapper namespace="org.cooze.spring.boot.mybatis.mapper.city.CityMapper">
+
+    <select id="findByCityState" resultType="org.cooze.spring.boot.mybatis.domain.City">
+        select * from city where state = #{state}
+    </select>
+
+    <insert id="addCity" parameterType="org.cooze.spring.boot.mybatis.domain.City">
+        INSERT INTO city(name,state,country) VALUES (#{name},#{state},#{country})
+    </insert>
+</mapper>

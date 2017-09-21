@@ -1,0 +1,37 @@
+mysql:
+  host: 192.168.1.87
+  port: 3306
+#  driver: com.mysql.jdbc.Driver
+# mysql驱动 6.0.6 中 `com.mysql.jdbc.Driver' 过期了建议使用 `com.mysql.cj.jdbc.Driver'.
+  driver: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://${mysql.host}:${mysql.port}
+  common-param: useUnicode=true&characterEncoding=utf-8&useSSL=false
+  username: poc1
+  password: poc1@321
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
+#mysql数据连接信息集成了三个数据源
+spring:
+  datasource:
+    student:
+      driver-class-name: ${mysql.driver}
+      url: ${mysql.url}/student?${mysql.common-param}
+      username: ${mysql.username}
+      password: ${mysql.password}
+    school:
+      driver-class-name: ${mysql.driver}
+      url: ${mysql.url}/school?${mysql.common-param}
+      username: ${mysql.username}
+      password: ${mysql.password}
+    #使用了c3p0连接池
+    city:
+      driver-class-name: ${mysql.driver}
+      url: ${mysql.url}/city?${mysql.common-param}
+      username: ${mysql.username}
+      password: ${mysql.password}
+      acquireIncrement: 5
+      minPoolSize: 5
+      initialPoolSize: 5
+      maxPoolSize: 10
